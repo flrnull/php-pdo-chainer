@@ -1,4 +1,4 @@
-PHP dbal wrapper
+PHP PDO connection wrapper
 ===========================================
 
 Low level logic DataBase manipulation class.
