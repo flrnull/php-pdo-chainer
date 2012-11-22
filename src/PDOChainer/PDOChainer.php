@@ -62,11 +62,12 @@ class PDOChainer
      * 
      * @param String $name
      * @param String  $value
+     * @param int $type
      * 
      * @return \PDOChainer\PDOChainer 
      */
-    public function bindValue($name, $value) {
-        $this->pdoStatement->bindValue($name, $value);
+    public function bindValue($name, $value, $type = \PDO::PARAM_STR) {
+        $this->pdoStatement->bindValue($name, $value, $type);
         return $this;
     }
     
