@@ -30,7 +30,7 @@ class PDOChainer
      * 
      * @param Array $params Db connection params
      */
-    public function __construct($options = array()) {
+    public function __construct(array $options = array()) {
         $host = isset($options['host']) ? $options['host'] : $this->host;
         $dbname = isset($options['dbname']) ? $options['dbname'] : $this->dbname;
         $user = isset($options['user']) ? $options['user'] : $this->user;
@@ -72,12 +72,22 @@ class PDOChainer
     }
     
     /**
-     * PDO rowCount.
+     * PDO bindValues for array of values.
      * 
-     * @return int
+     * @param Array $binds
+     * Array (
+     *   array(':id', 2, \PDO::PARAM_INT),
+     *   array(':name', 'James', \PDO::PARAM_STR),
+     *   ...
+     * )
+     * 
+     * @return \PDOChainer\PDOChainer
      */
-    public function rowCount() {
-        return ($this->pdoStatement) ? $this->pdoStatement->rowCount() : false;
+    public function bindValues(array $binds) {
+        foreach($binds as $valuesArray) {
+            $this->bindValue($valuesArray[0], $valuesArray[1], $valuesArray[2]);
+        }
+        return $this;
     }
     
     /**
@@ -139,5 +149,14 @@ class PDOChainer
      */
     public function lastInsertId() {
         return $this->pdo->lastInsertId();
+    }
+    
+    /**
+     * PDO rowCount.
+     * 
+     * @return int|false
+     */
+    public function rowCount() {
+        return ($this->pdoStatement) ? $this->pdoStatement->rowCount() : false;
     }
 }
