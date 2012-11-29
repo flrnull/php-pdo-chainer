@@ -72,6 +72,15 @@ class PDOChainer
     }
     
     /**
+     * PDO rowCount.
+     * 
+     * @return int
+     */
+    public function rowCount() {
+        return ($this->pdoStatement) ? $this->pdoStatement->rowCount() : false;
+    }
+    
+    /**
      * PDO execute.
      * 
      * @return \PDOChainer\PDOChainer
@@ -128,7 +137,7 @@ class PDOChainer
      * 
      * @return String Last inserted ID
      */
-    public function lastId() {
+    public function lastInsertId() {
         return $this->pdo->lastInsertId();
     }
 }
