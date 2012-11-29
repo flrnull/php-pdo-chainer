@@ -1,8 +1,8 @@
 PHP PDO wrappers
 ===========================================
 
-1. PDOChainer — Low level logic DataBase manipulation class.
-2. DBAL — Simple DB layer over PDOChainer. 
+1. PDOChainer — low level DataBase manipulation class.
+2. DBAL — DB layer over PDOChainer. 
 
 PDOChainer usage example
 --------
@@ -43,7 +43,7 @@ $data = array(
     array('id', 2),
     array('name', 'James'),
 );
-$dbal->insert(table, $data);
+$dbal->insert($table, $data);
 
 // Update
 $data = array(
@@ -52,6 +52,6 @@ $data = array(
 $where = array(
     array('id', 2),
 );
-$dbal->update(table, $data, $where);
+$dbal->update($table, $data, $where);
 
 ```
