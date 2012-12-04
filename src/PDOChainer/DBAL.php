@@ -82,7 +82,7 @@ class DBAL
     function update($table, array $dataArr, array $whereArr = array(), $limit = 1){
         $fields = $params = $values = $where = array();
         foreach($dataArr as $data){
-            $fields[] = "`{$data[0]}' = :{$data[0]}";
+            $fields[] = "`{$data[0]}` = :{$data[0]}";
             $values[] = array(":{$data[0]}", $data[1], (isset($data[2]) ? $data[2] : \PDO::PARAM_STR));
         }
         $i = 0;
