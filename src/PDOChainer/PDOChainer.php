@@ -85,7 +85,7 @@ class PDOChainer
      */
     public function bindValues(array $binds) {
         foreach($binds as $valuesArray) {
-            $this->bindValue($valuesArray[0], $valuesArray[1], $valuesArray[2]);
+            $this->bindValue($valuesArray[0], $valuesArray[1], (isset($valuesArray[2]) ? $valuesArray[2] : \PDO::PARAM_STR));
         }
         return $this;
     }
