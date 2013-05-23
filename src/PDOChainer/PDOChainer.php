@@ -17,6 +17,7 @@ namespace PDOChainer;
 class PDOChainer
 {
     private $host = '127.0.0.1';
+    private $port = 3306;
     private $dbname = 'test';
     private $user = 'root';
     private $pass = '';
@@ -32,12 +33,13 @@ class PDOChainer
      */
     public function __construct(array $options = array()) {
         $host = isset($options['host']) ? $options['host'] : $this->host;
+        $port = isset($options['port']) ? $options['port'] : $this->port;
         $dbname = isset($options['dbname']) ? $options['dbname'] : $this->dbname;
         $user = isset($options['user']) ? $options['user'] : $this->user;
         $pass = isset($options['pass']) ? $options['pass'] : $this->pass;
         $errorMode = isset($options['errorMode']) ? $options['errorMode'] : $this->errorMode;
         try {
-            $db = new \PDO('mysql:host='.$host.';dbname='.$dbname, $user, $pass);
+            $db = new \PDO('mysql:host='.$host.';port='.$port.';;dbname='.$dbname, $user, $pass);
             $db->setAttribute(\PDO::ATTR_ERRMODE, $errorMode);
         } catch (\PDOException $e) {
             trigger_error('DataBase error: ' . $e->getMessage(), E_USER_ERROR);
