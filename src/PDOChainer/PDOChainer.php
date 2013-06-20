@@ -39,7 +39,7 @@ class PDOChainer
         $pass = isset($options['pass']) ? $options['pass'] : $this->pass;
         $errorMode = isset($options['errorMode']) ? $options['errorMode'] : $this->errorMode;
         try {
-            $db = new \PDO('mysql:host='.$host.';port='.$port.';;dbname='.$dbname, $user, $pass);
+            $db = new \PDO('mysql:host='.$host.';port='.$port.';dbname='.$dbname, $user, $pass);
             $db->setAttribute(\PDO::ATTR_ERRMODE, $errorMode);
         } catch (\PDOException $e) {
             trigger_error('DataBase error: ' . $e->getMessage(), E_USER_ERROR);
