@@ -22,6 +22,7 @@ class PDOChainer
     private $user = 'root';
     private $pass = '';
     private $errorMode = \PDO::ERRMODE_WARNING;
+    private $charset = 'utf8';
     
     private $pdo; // Db handler
     private $pdoStatement; // Statement object
@@ -38,9 +39,11 @@ class PDOChainer
         $user = isset($options['user']) ? $options['user'] : $this->user;
         $pass = isset($options['pass']) ? $options['pass'] : $this->pass;
         $errorMode = isset($options['errorMode']) ? $options['errorMode'] : $this->errorMode;
+        $charset = isset($options['charset']) ? $options['charset'] : $this->charset;
         try {
             $db = new \PDO('mysql:host='.$host.';port='.$port.';dbname='.$dbname, $user, $pass);
             $db->setAttribute(\PDO::ATTR_ERRMODE, $errorMode);
+            $db->exec("set names {$charset}");
         } catch (\PDOException $e) {
             trigger_error('DataBase error: ' . $e->getMessage(), E_USER_ERROR);
         }
