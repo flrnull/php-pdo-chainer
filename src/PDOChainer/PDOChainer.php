@@ -18,7 +18,7 @@ class PDOChainer
 {
     private $host = '127.0.0.1';
     private $port = 3306;
-    private $dbname = 'test';
+    private $dbname = null;
     private $user = 'root';
     private $pass = '';
     private $errorMode = \PDO::ERRMODE_WARNING;
@@ -26,11 +26,11 @@ class PDOChainer
     
     private $pdo; // Db handler
     private $pdoStatement; // Statement object
-    
+
     /**
      * Main constructor.
-     * 
-     * @param Array $params Db connection params
+     *
+     * @param array $options
      */
     public function __construct(array $options = array()) {
         $host = isset($options['host']) ? $options['host'] : $this->host;
@@ -40,8 +40,13 @@ class PDOChainer
         $pass = isset($options['pass']) ? $options['pass'] : $this->pass;
         $errorMode = isset($options['errorMode']) ? $options['errorMode'] : $this->errorMode;
         $charset = isset($options['charset']) ? $options['charset'] : $this->charset;
+        $connectionOptions = [];
+        if (isset($options['persistent'])) {
+            $connectionOptions[\PDO::ATTR_PERSISTENT] = $options['persistent'];
+        }
+        $dsn = 'mysql:host='.$host.';port='.$port.';dbname='.$dbname;
         try {
-            $db = new \PDO('mysql:host='.$host.';port='.$port.';dbname='.$dbname, $user, $pass);
+            $db = new \PDO($dsn, $user, $pass, $connectionOptions);
             $db->setAttribute(\PDO::ATTR_ERRMODE, $errorMode);
             $db->exec("set names {$charset}");
         } catch (\PDOException $e) {
